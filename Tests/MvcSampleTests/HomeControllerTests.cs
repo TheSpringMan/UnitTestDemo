@@ -37,7 +37,7 @@ namespace MvcSampleTests
         public async Task IndexPost_ReturnsBadRequestResult_WhenModelStateIsInvalid()
         {
             var mockRepo = new Mock<IBrainstormSessionRepository>();
-            mockRepo.Setup(x => x.ListAsync()).ReturnsAsync(GetTestSessions());
+            // mockRepo.Setup(x => x.ListAsync()).ReturnsAsync(GetTestSessions());
             var controller = new HomeController(mockRepo.Object);
             controller.ModelState.AddModelError("SessionName", "Required");
             var newSession = new StormSessionViewModel();
@@ -53,7 +53,7 @@ namespace MvcSampleTests
         {
             //Arrange
             var mockRepo = new Mock<IBrainstormSessionRepository>();
-            mockRepo.Setup(x=>x.AddAsync(It.IsAny<BrainstormSession>())).Returns(Task.CompletedTask).Verifiable();
+            mockRepo.Setup(x=>x.AddAsync(It.IsAny<BrainstormSession>())).Returns(Task.CompletedTask).Verifiable("入参的类型错误");
             var controller = new HomeController(mockRepo.Object);
             var model = new StormSessionViewModel(){
                 Name="Test Name"
